@@ -17,7 +17,7 @@ const entryPointABI = [
             "type": "uint256"
         }
         ],
-        "name": "_reqOracle",
+        "name": "reqOracle",
         "outputs": [],
         "stateMutability": "payable",
         "type": "function"
@@ -33,7 +33,7 @@ async function userOpMessage(params) {
     const encodedParams = ethers.toUtf8Bytes(userOp.params);
 
     const functionsOpsInterface = new ethers.Interface(entryPointABI);
-    const encodedData = functionsOpsInterface.encodeFunctionData('_reqOracle', [userOp.uri, encodedParams, userOp.deadline]);
+    const encodedData = functionsOpsInterface.encodeFunctionData('reqOracle', [userOp.uri, encodedParams, userOp.deadline]);
     let result = encodedData
     return result;
 }
