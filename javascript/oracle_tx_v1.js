@@ -21,7 +21,10 @@ const oracleABI = [
 
 async function reqOracle(params) {
     const oracleInterface = new ethers.Interface(oracleABI);
-    const encodedData = oracleInterface.encodeFunctionData('reqOracle');
+    const encodedData = oracleInterface.encodeFunctionData('reqOracle', [
+        params.uri,
+        params.params
+    ]);
 
     return encodedData;
 }
