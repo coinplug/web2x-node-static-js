@@ -1,41 +1,29 @@
-const entryPointABI = [
+const oracleABI = [
     {
         "inputs": [
-        {
+          {
             "internalType": "string",
             "name": "uri",
             "type": "string"
-        },
-        {
-            "internalType": "bytes",
+          },
+          {
+            "internalType": "string",
             "name": "params",
-            "type": "bytes"
-        },
-        {
-            "internalType": "uint256",
-            "name": "deadline",
-            "type": "uint256"
-        }
+            "type": "string"
+          }
         ],
         "name": "reqOracle",
         "outputs": [],
-        "stateMutability": "payable",
+        "stateMutability": "nonpayable",
         "type": "function"
     }
-    ];
+];
 
-async function userOpMessage(params) {
-    let userOp = {
-        uri: params.uri,
-        params: params.params,
-        deadline: params.deadline
-    };
-    const encodedParams = ethers.toUtf8Bytes(userOp.params);
+async function reqOracle(params) {
+    const oracleInterface = new ethers.Interface(oracleABI);
+    const encodedData = oracleInterface.encodeFunctionData('reqOracle');
 
-    const functionsOpsInterface = new ethers.Interface(entryPointABI);
-    const encodedData = functionsOpsInterface.encodeFunctionData('reqOracle', [userOp.uri, encodedParams, userOp.deadline]);
-    let result = encodedData
-    return result;
+    return encodedData;
 }
 
-mainFunction = userOpMessage;
+mainFunction = reqOracle;
